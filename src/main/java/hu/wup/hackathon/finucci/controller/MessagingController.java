@@ -5,9 +5,14 @@ import hu.wup.hackathon.finucci.model.Messaging;
 import hu.wup.hackathon.finucci.model.MessengerMessage;
 import hu.wup.hackathon.finucci.model.Recipient;
 import hu.wup.hackathon.finucci.model.Response;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +54,10 @@ public class MessagingController {
     private void sendReply(String recipientId, String receivedMessage) {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("accessToken", "EAAQZBzHgrghUBADdHowZBkhN8zdjtQDBfZARnh9WQXUcsPK6nA2thEx219PzbdgVgNW9vOZCiZArNpJ405KQVvaZCER2yKZACEsnZAFMZCfMCZAuUASawgDg4q7TZA6EvAZARnYZBnRfXKMOIgbYre5LgLdvyM1zcZAH5jJ1CK5YhEkoH0MQZDZD");
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+        List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+        interceptors.add(new LoggingRequestInterceptor());
+        restTemplate.setInterceptors(interceptors);
         Messaging response = new Messaging();
         Recipient recipient = new Recipient();
         recipient.setId(recipientId);
