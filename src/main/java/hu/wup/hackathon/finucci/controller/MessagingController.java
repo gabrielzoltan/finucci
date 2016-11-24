@@ -48,14 +48,14 @@ public class MessagingController {
     
     private void sendReply(String recipientId, String receivedMessage) {
         Map<String, String> uriVariables = new HashMap<>();
-        uriVariables.put("access_token", "EAAQZBzHgrghUBADdHowZBkhN8zdjtQDBfZARnh9WQXUcsPK6nA2thEx219PzbdgVgNW9vOZCiZArNpJ405KQVvaZCER2yKZACEsnZAFMZCfMCZAuUASawgDg4q7TZA6EvAZARnYZBnRfXKMOIgbYre5LgLdvyM1zcZAH5jJ1CK5YhEkoH0MQZDZD");
+        uriVariables.put("accessToken", "EAAQZBzHgrghUBADdHowZBkhN8zdjtQDBfZARnh9WQXUcsPK6nA2thEx219PzbdgVgNW9vOZCiZArNpJ405KQVvaZCER2yKZACEsnZAFMZCfMCZAuUASawgDg4q7TZA6EvAZARnYZBnRfXKMOIgbYre5LgLdvyM1zcZAH5jJ1CK5YhEkoH0MQZDZD");
         RestTemplate restTemplate = new RestTemplate();
         Messaging response = new Messaging();
         Recipient recipient = new Recipient();
         recipient.setId(recipientId);
         Message message = new Message();
         message.setText(receivedMessage);
-        ResponseEntity<Response> resp = restTemplate.postForEntity("https://graph.facebook.com/v2.6/me/messages", response, Response.class, uriVariables);
+        ResponseEntity<Response> resp = restTemplate.postForEntity("https://graph.facebook.com/v2.6/me/messages?access_token={accessToken}", response, Response.class, uriVariables);
         System.out.println("Response status: " + resp.getStatusCode());
     }
 
