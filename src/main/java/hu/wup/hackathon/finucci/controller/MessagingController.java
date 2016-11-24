@@ -29,7 +29,9 @@ public class MessagingController {
     String receiveMessage(@RequestBody MessengerMessage messengerMessage) {
         if (REQUEST_OBJECT_PAGE.equals(messengerMessage.getObject())) {
             messengerMessage.getEntry().forEach((entry) -> {
-                System.out.println("Received message: " + entry.getMessaging().getMessage());
+                entry.getMessaging().forEach((messaging) -> {
+                    System.out.println("Received message: " + messaging.getMessage());
+                });
             });
             
         }

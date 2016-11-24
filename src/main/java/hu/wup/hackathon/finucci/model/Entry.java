@@ -1,10 +1,13 @@
 package hu.wup.hackathon.finucci.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Entry {
     
     private String id;
     private Long time;
-    private Messaging messaging;
+    private List<Messaging> messaging = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -22,11 +25,11 @@ public class Entry {
         this.time = time;
     }
 
-    public Messaging getMessaging() {
+    public List<Messaging> getMessaging() {
         return messaging;
     }
 
-    public void setMessaging(Messaging messaging) {
+    public void setMessaging(List<Messaging> messaging) {
         this.messaging = messaging;
     }
 }
