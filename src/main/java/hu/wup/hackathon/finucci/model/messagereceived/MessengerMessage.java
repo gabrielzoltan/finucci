@@ -1,4 +1,4 @@
-package hu.wup.hackathon.finucci.model;
+package hu.wup.hackathon.finucci.model.messagereceived;
 
 import java.util.ArrayList;
 import java.util.List;

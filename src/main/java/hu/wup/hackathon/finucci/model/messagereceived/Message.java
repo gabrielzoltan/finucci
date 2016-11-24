@@ -1,4 +1,4 @@
-package hu.wup.hackathon.finucci.model;
+package hu.wup.hackathon.finucci.model.messagereceived;
 
 public class Message {
     private String mid;

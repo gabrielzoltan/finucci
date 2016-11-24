@@ -1,10 +1,10 @@
 package hu.wup.hackathon.finucci.controller;
 
-import hu.wup.hackathon.finucci.model.Message;
-import hu.wup.hackathon.finucci.model.Messaging;
-import hu.wup.hackathon.finucci.model.MessengerMessage;
-import hu.wup.hackathon.finucci.model.Recipient;
-import hu.wup.hackathon.finucci.model.Response;
+import hu.wup.hackathon.finucci.model.messagereceived.Message;
+import hu.wup.hackathon.finucci.model.messagereceived.Messaging;
+import hu.wup.hackathon.finucci.model.messagereceived.MessengerMessage;
+import hu.wup.hackathon.finucci.model.messagereceived.Recipient;
+import hu.wup.hackathon.finucci.model.sendapi.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,11 +58,13 @@ public class MessagingController {
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         interceptors.add(new LoggingRequestInterceptor());
         restTemplate.setInterceptors(interceptors);
-        Messaging response = new Messaging();
-        Recipient recipient = new Recipient();
+        hu.wup.hackathon.finucci.model.sendapi.Messaging response = new hu.wup.hackathon.finucci.model.sendapi.Messaging();
+        hu.wup.hackathon.finucci.model.sendapi.Recipient recipient = new hu.wup.hackathon.finucci.model.sendapi.Recipient();
         recipient.setId(recipientId);
-        Message message = new Message();
+        hu.wup.hackathon.finucci.model.sendapi.Message message = new hu.wup.hackathon.finucci.model.sendapi.Message();
         message.setText(receivedMessage);
+        response.setRecipient(recipient);
+        response.setMessage(message);
         ResponseEntity<Response> resp = restTemplate.postForEntity("https://graph.facebook.com/v2.6/me/messages?access_token={accessToken}", response, Response.class, uriVariables);
         System.out.println("Response status: " + resp.getStatusCode());
     }

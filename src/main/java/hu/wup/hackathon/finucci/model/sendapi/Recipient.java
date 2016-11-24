@@ -1,6 +1,6 @@
-package hu.wup.hackathon.finucci.model;
+package hu.wup.hackathon.finucci.model.sendapi;
 
-public class Sender {
+public class Recipient {
     private String id;
 
     public String getId() {

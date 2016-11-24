@@ -1,4 +1,4 @@
-package hu.wup.hackathon.finucci.model;
+package hu.wup.hackathon.finucci.model.sendapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
