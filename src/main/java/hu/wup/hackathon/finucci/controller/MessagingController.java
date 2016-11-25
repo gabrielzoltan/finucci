@@ -128,7 +128,7 @@ public class MessagingController {
             return createSimpleResponse(recipient, "Kinek szeretnél utalni?");
         } else if (names.contains(message)) {
             return createSimpleResponse(recipient, "Mennyit szeretnél utalni?");
-        } else if (message.equals("5000")) {
+        } else if (values.contains(message)) {
             return createSimpleResponse(recipient, "Biztos hogy el szeretnéd utalni?");
         } else if (message.equals("igen")) {
             return createSimpleResponse(recipient, "Átutalva");
