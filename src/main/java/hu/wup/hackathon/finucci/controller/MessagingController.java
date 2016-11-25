@@ -119,6 +119,10 @@ public class MessagingController {
                 "utalni szeretnék", "utalás", "pénzküldés");
         List<String> names = Arrays.asList("Zoli", "Adri", "Gabi", "András");
 //        List<String> values =
+        List<String> values = new ArrayList<>();
+        for (int i = 0; i < 10000; i+=100) {
+            values.add(Integer.toString(i));
+        }
 
         if (commands.contains(message)) {
             return createSimpleResponse(recipient, "Kinek szeretnél utalni?");
