@@ -129,7 +129,7 @@ public class MessagingController {
         } else if (names.contains(message)) {
             return createSimpleResponse(recipient, "Mennyit szeretnél utalni?");
         } else if (values.contains(message)) {
-            return createSimpleResponse(recipient, "Biztos hogy el szeretnéd utalni?");
+            return createSimpleResponse(recipient, "Biztos, hogy el szeretnél utalni 6000ft-ot Adri-nak?");
         } else if (message.equals("igen")) {
             return createSimpleResponse(recipient, "Átutalva");
         } else if (message.equals("hello")) {
