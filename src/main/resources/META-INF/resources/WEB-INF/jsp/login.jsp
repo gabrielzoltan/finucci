@@ -20,6 +20,6 @@ response.setHeader("Expires","0");
         <br/>
         <span>Password:</span><input type="password" />
         <br/>
-        <input type="button" value="Login" onclick="location.href='${redirectUri}?account_linking_token=${accountLinkingToken}&authorization_code=authcode';" />
+        <input type="button" value="Login" onclick="location.href='${redirectUri}&authorization_code=authcode';" />
     </body>
 </html>
