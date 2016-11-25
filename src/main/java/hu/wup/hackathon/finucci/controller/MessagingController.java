@@ -140,13 +140,17 @@ public class MessagingController {
                 "utalni szeretnék", "utalás", "pénzküldés");
         List<String> names = Arrays.asList("Zoli", "Adri", "Gabi", "András");
 //        List<String> values =
+        List<String> values = new ArrayList<>();
+        for (int i = 0; i < 10000; i+=100) {
+            values.add(Integer.toString(i));
+        }
 
         if (commands.contains(message)) {
             return createSimpleResponse(recipient, "Kinek szeretnél utalni?");
         } else if (names.contains(message)) {
             return createSimpleResponse(recipient, "Mennyit szeretnél utalni?");
-        } else if (message.equals("5000")) {
-            return createSimpleResponse(recipient, "Biztos hogy el szeretnéd utalni?");
+        } else if (values.contains(message)) {
+            return createSimpleResponse(recipient, "Biztos, hogy el szeretnéd utalni?");
         } else if (message.equals("123456")) {
             return createSimpleResponse(recipient, "Átutalva");
         } else if (message.equals("hello")) {
