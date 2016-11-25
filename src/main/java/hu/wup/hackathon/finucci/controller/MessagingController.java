@@ -7,7 +7,6 @@ import hu.wup.hackathon.finucci.model.sendapi.Element;
 import hu.wup.hackathon.finucci.model.sendapi.Payload;
 import hu.wup.hackathon.finucci.model.sendapi.Response;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,7 @@ public class MessagingController {
     private static final String VERIFY_TOKEN = "F.inucci";
     private static final String REQUEST_OBJECT_PAGE = "page";
     
-    @Value("finucci.login.url")
+    @Value("${finucci.login.url}")
     private String loginUrl;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
