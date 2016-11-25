@@ -117,7 +117,7 @@ public class MessagingController {
     private hu.wup.hackathon.finucci.model.sendapi.Messaging processMessage(String recipient, String message) {
         List<String> commands = Arrays.asList("send money", "I want to send money", "i want to send money", "pénzt szeretnék küldeni", "pénzt szeretnék utalni",
                 "utalni szeretnék", "utalás", "pénzküldés");
-        List<String> names = Arrays.asList("Zoli, Adri, Gabi, András");
+        List<String> names = Arrays.asList("Zoli", "Adri", "Gabi", "András");
 //        List<String> values =
 
         if (commands.contains(message)) {
