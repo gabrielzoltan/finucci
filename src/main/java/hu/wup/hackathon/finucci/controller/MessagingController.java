@@ -1,9 +1,6 @@
 package hu.wup.hackathon.finucci.controller;
 
-import hu.wup.hackathon.finucci.model.messagereceived.Message;
-import hu.wup.hackathon.finucci.model.messagereceived.Messaging;
 import hu.wup.hackathon.finucci.model.messagereceived.MessengerMessage;
-import hu.wup.hackathon.finucci.model.messagereceived.Recipient;
 import hu.wup.hackathon.finucci.model.sendapi.Response;
 import java.util.ArrayList;
 import java.util.HashMap;
