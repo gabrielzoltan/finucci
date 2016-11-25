@@ -6,10 +6,9 @@ import hu.wup.hackathon.finucci.model.sendapi.Button;
 import hu.wup.hackathon.finucci.model.sendapi.Element;
 import hu.wup.hackathon.finucci.model.sendapi.Payload;
 import hu.wup.hackathon.finucci.model.sendapi.Response;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
@@ -106,18 +105,24 @@ public class MessagingController {
     }
 
     private hu.wup.hackathon.finucci.model.sendapi.Messaging processMessage(String recipient, String message) {
-        if (message.equals("utalni szeretnek")) {
+        List<String> commands = Arrays.asList("send money", "I want to send money", "i want to send money", "pénzt szeretnék küldeni", "pénzt szeretnék utalni",
+                "utalni szeretnék", "utalás", "pénzküldés");
+        List<String> names = Arrays.asList("Zoli, Adri, Gabi, András");
+//        List<String> values =
+
+
+        if (commands.contains(message)) {
             return createSimpleResponse(recipient, "Kinek szeretnél utalni?");
-        } else if (message.equals("Kovács István")) {
+        } else if (names.contains(message)) {
             return createSimpleResponse(recipient, "Mennyit szeretnél utalni?");
-        } else if (message.equals("5000ft")) {
-            return createSimpleResponse(recipient, "Biztos hogy el szeretnél utalni 5öööft-ot Kovács Istvánnak?");
+        } else if (message.equals("5000")) {
+            return createSimpleResponse(recipient, "Biztos hogy el szeretnéd utalni?");
         } else if (message.equals("igen")) {
             return createSimpleResponse(recipient, "Átutalva");
         } else if (message.equals("hello")) {
             return createLoginResponse(recipient);
         }
-        return createSimpleResponse(recipient, "default");
+        return createSimpleResponse(recipient, "Sajnálom, nem tudom értelmezni az üzenetet.");
     }
 
 
