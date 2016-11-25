@@ -1,10 +1,15 @@
 package hu.wup.hackathon.finucci.model.messagereceived;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Messaging {
+    
     private Sender sender;
     private Recipient recipient;
     private Long timestamp;
     private Message message;
+    private AccountLinking accountLinking;
 
     public Sender getSender() {
         return sender;
@@ -36,5 +41,13 @@ public class Messaging {
 
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    public AccountLinking getAccountLinking() {
+        return accountLinking;
+    }
+
+    public void setAccountLinking(AccountLinking accountLinking) {
+        this.accountLinking = accountLinking;
     }
 }

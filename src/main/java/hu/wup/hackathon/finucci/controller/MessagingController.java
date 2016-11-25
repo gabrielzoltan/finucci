@@ -24,10 +24,10 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class MessagingController {
-    
+
     private static final String VERIFY_TOKEN = "F.inucci";
     private static final String REQUEST_OBJECT_PAGE = "page";
-    
+
     @Value("${finucci.login.url}")
     private String loginUrl;
 
@@ -40,23 +40,33 @@ public class MessagingController {
             return "Error, wrong validation token.";
         }
     }
-    
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     String receiveMessage(@RequestBody MessengerMessage messengerMessage) {
         if (REQUEST_OBJECT_PAGE.equals(messengerMessage.getObject())) {
-            messengerMessage.getEntry().forEach((entry) -> {
-                entry.getMessaging().forEach((messaging) -> {
-                    System.out.println("Received message: " + messaging.getMessage().getText());
-                    hu.wup.hackathon.finucci.model.sendapi.Messaging reply = processMessage(messaging.getSender().getId(), messaging.getMessage().getText());
+            if (messengerMessage.getEntry() != null) {
+                messengerMessage.getEntry().forEach((entry) ->
+                {
+                    if (entry.getMessaging() != null) {
+                        entry.getMessaging().forEach((messaging) ->
+                        {
+                            if (messaging.getMessage() != null) {
+                                System.out.println("Received message: " + messaging.getMessage().getText());
+                                hu.wup.hackathon.finucci.model.sendapi.Messaging reply = processMessage(messaging.getSender().getId(), messaging.getMessage().getText());
 
-                    sendReply(reply);
+                                sendReply(reply);
+                            } else if (messaging.getAccountLinking() != null) {
+                                hu.wup.hackathon.finucci.model.sendapi.Messaging reply = createSimpleResponse(messaging.getSender().getId(), "Szia autentikált felhasználó! Miben segíthetek?");
+                            }
+                        });
+                    }
                 });
-            });
+            }
         }
         return "OK";
     }
-    
+
     private void sendReply(hu.wup.hackathon.finucci.model.sendapi.Messaging response) {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("accessToken", "EAAQZBzHgrghUBADdHowZBkhN8zdjtQDBfZARnh9WQXUcsPK6nA2thEx219PzbdgVgNW9vOZCiZArNpJ405KQVvaZCER2yKZACEsnZAFMZCfMCZAuUASawgDg4q7TZA6EvAZARnYZBnRfXKMOIgbYre5LgLdvyM1zcZAH5jJ1CK5YhEkoH0MQZDZD");
@@ -64,11 +74,11 @@ public class MessagingController {
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         interceptors.add(new LoggingRequestInterceptor());
         restTemplate.setInterceptors(interceptors);
-        
+
         ResponseEntity<Response> resp = restTemplate.postForEntity("https://graph.facebook.com/v2.6/me/messages?access_token={accessToken}", response, Response.class, uriVariables);
         System.out.println("Response status: " + resp.getStatusCode());
     }
-    
+
     private hu.wup.hackathon.finucci.model.sendapi.Messaging createSimpleResponse(String recipientId, String receivedMessage) {
         hu.wup.hackathon.finucci.model.sendapi.Messaging response = new hu.wup.hackathon.finucci.model.sendapi.Messaging();
         hu.wup.hackathon.finucci.model.sendapi.Recipient recipient = new hu.wup.hackathon.finucci.model.sendapi.Recipient();
@@ -79,7 +89,7 @@ public class MessagingController {
         response.setMessage(message);
         return response;
     }
-    
+
     private hu.wup.hackathon.finucci.model.sendapi.Messaging createLoginResponse(String recipientId) {
         hu.wup.hackathon.finucci.model.sendapi.Messaging response = new hu.wup.hackathon.finucci.model.sendapi.Messaging();
         hu.wup.hackathon.finucci.model.sendapi.Recipient recipient = new hu.wup.hackathon.finucci.model.sendapi.Recipient();
@@ -110,7 +120,6 @@ public class MessagingController {
         List<String> names = Arrays.asList("Zoli, Adri, Gabi, András");
 //        List<String> values =
 
-
         if (commands.contains(message)) {
             return createSimpleResponse(recipient, "Kinek szeretnél utalni?");
         } else if (names.contains(message)) {
@@ -124,6 +133,5 @@ public class MessagingController {
         }
         return createSimpleResponse(recipient, "Sajnálom, nem tudom értelmezni az üzenetet.");
     }
-
 
 }
