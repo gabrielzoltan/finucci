@@ -2,7 +2,6 @@ package hu.wup.hackathon.finucci.model.sendapi;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,7 +11,7 @@ public class Element {
     @JsonProperty("image_url")
     private String imageUrl;
     private String subtitle;
-    private List<Button> buttons = new ArrayList<>();
+    private List<Button> buttons;
 
     public String getTitle() {
         return title;

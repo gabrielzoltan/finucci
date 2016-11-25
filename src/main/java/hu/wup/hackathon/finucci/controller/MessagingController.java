@@ -123,10 +123,12 @@ public class MessagingController {
         Element element = new Element();
         element.setTitle("Welcome to Chat.Up");
         element.setImageUrl("http://wup.digital/wp-content/themes/wup/assets/images/mup/slide-1-button.png");
+        List<Button> buttons = new ArrayList<>();
         Button button = new Button();
         button.setType("account_link");
         button.setUrl(loginUrl);
-        element.getButtons().add(button);
+        buttons.add(button);
+        element.setButtons(buttons);
         payload.getElements().add(element);
         attachment.setPayload(payload);
         message.setAttachment(attachment);
