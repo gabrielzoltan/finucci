@@ -44,7 +44,9 @@ public class MessagingController {
             messengerMessage.getEntry().forEach((entry) -> {
                 entry.getMessaging().forEach((messaging) -> {
                     System.out.println("Received message: " + messaging.getMessage().getText());
-                    sendReply(messaging.getSender().getId(), messaging.getMessage().getText());
+                    String reply = processMessage(messaging.getMessage().getText());
+
+                    sendReply(messaging.getSender().getId(), reply);
                 });
             });
         }
@@ -68,5 +70,19 @@ public class MessagingController {
         ResponseEntity<Response> resp = restTemplate.postForEntity("https://graph.facebook.com/v2.6/me/messages?access_token={accessToken}", response, Response.class, uriVariables);
         System.out.println("Response status: " + resp.getStatusCode());
     }
+
+    private String processMessage(String message) {
+        if (message.equals("utalni szeretnek")) {
+            return "Kinek szeretnél utalni?";
+        } else if (message.equals("Kovács István")) {
+            return "Mennyit szeretnél utalni?";
+        } else if (message.equals("5000ft")) {
+            return "Biztos hogy el szeretnél utalni 5öööft-ot Kovács Istvánnak?";
+        } else if (message.equals("igen")) {
+            return "Átutalva";
+        }
+        return "default";
+    }
+
 
 }
