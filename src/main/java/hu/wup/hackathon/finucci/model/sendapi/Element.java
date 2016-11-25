@@ -11,6 +11,7 @@ public class Element {
     private String title;
     @JsonProperty("image_url")
     private String imageUrl;
+    private String subtitle;
     private List<Button> buttons = new ArrayList<>();
 
     public String getTitle() {
@@ -27,6 +28,14 @@ public class Element {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public List<Button> getButtons() {

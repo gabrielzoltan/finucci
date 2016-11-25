@@ -90,6 +90,27 @@ public class MessagingController {
         return response;
     }
 
+    private hu.wup.hackathon.finucci.model.sendapi.Messaging createImageResponse(String recipientId) {
+        hu.wup.hackathon.finucci.model.sendapi.Messaging response = new hu.wup.hackathon.finucci.model.sendapi.Messaging();
+        hu.wup.hackathon.finucci.model.sendapi.Recipient recipient = new hu.wup.hackathon.finucci.model.sendapi.Recipient();
+        recipient.setId(recipientId);
+        hu.wup.hackathon.finucci.model.sendapi.Message message = new hu.wup.hackathon.finucci.model.sendapi.Message();
+        Attachment attachment = new Attachment();
+        attachment.setType("template");
+        Payload payload = new Payload();
+        payload.setTemplateType("generic");
+        Element element = new Element();
+        element.setTitle("Megerősítés");
+        element.setImageUrl("https://cdn.messagebird.com/frontend-assets/images/illustrations/steps/otp-step-2.svg");
+        element.setSubtitle("Kérjük add meg a mobil alkalmazáson generált azonosítót");
+        payload.getElements().add(element);
+        attachment.setPayload(payload);
+        message.setAttachment(attachment);
+        response.setRecipient(recipient);
+        response.setMessage(message);
+        return response;
+    }
+
     private hu.wup.hackathon.finucci.model.sendapi.Messaging createLoginResponse(String recipientId) {
         hu.wup.hackathon.finucci.model.sendapi.Messaging response = new hu.wup.hackathon.finucci.model.sendapi.Messaging();
         hu.wup.hackathon.finucci.model.sendapi.Recipient recipient = new hu.wup.hackathon.finucci.model.sendapi.Recipient();
@@ -126,10 +147,12 @@ public class MessagingController {
             return createSimpleResponse(recipient, "Mennyit szeretnél utalni?");
         } else if (message.equals("5000")) {
             return createSimpleResponse(recipient, "Biztos hogy el szeretnéd utalni?");
-        } else if (message.equals("igen")) {
+        } else if (message.equals("123456")) {
             return createSimpleResponse(recipient, "Átutalva");
         } else if (message.equals("hello")) {
             return createLoginResponse(recipient);
+        }else if (message.equals("igen")) {
+            return createImageResponse(recipient);
         }
         return createSimpleResponse(recipient, "Sajnálom, nem tudom értelmezni az üzenetet.");
     }
